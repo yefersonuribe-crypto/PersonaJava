@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio Multimedia HTML5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. SETUP & THEME (Multimedia Studio) */
+:root {
+    --bg-dark: #0f0c29;
+    --neon-pink: #ff00cc;
+    --neon-cyan: #3333ff;
+    --neon-purple: #9d00ff;
+    --text-main: #ffffff;
+    --glass-bg: rgba(20, 20, 40, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-dark);
+    /* Fondo animado y vibrante */
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(255, 0, 204, 0.25), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(51, 51, 255, 0.25), transparent 40%),
+        linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
+    background-size: cover;
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr;
+    margin: 0;
+    padding: 40px 0;
+    place-items: center;
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-main);
+}
+
+/* 2. SLIDE CONTAINER */
+.slide-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: 0 0 40px rgba(157, 0, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    height: 720px;
+    justify-content: center;
+    overflow: hidden;
+    padding: 60px;
+    position: relative;
+    width: 1280px;
+}
+
+/* Decorative Top Gradient Line */
+.slide-container::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 6px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-cyan));
+    z-index: 2;
+}
+
+.slide-container > * { position: relative; z-index: 1; }
+
+/* 3. TYPOGRAPHY */
+h1 {
+    font-size: 64px;
+    font-weight: 800;
+    background: linear-gradient(to right, #fff, #f0abfc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    text-shadow: 0 0 20px rgba(255, 0, 204, 0.3);
+}
+
+h2 {
+    font-size: 48px;
+    color: #fff;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+h3 { font-size: 28px; color: var(--neon-pink); margin-bottom: 10px; font-weight: 600; }
+p, li { font-size: 24px; line-height: 1.6; color: #e2e8f0; }
+strong { color: #fff; font-weight: 700; }
+
+ul { list-style: none; padding: 0; }
+li { margin-bottom: 15px; padding-left: 30px; position: relative; }
+li::before {
+    content: "\f04b"; /* Play icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--neon-purple);
+    position: absolute;
+    left: 0;
+    font-size: 16px;
+    top: 6px;
+}
+
+/* 4. LAYOUTS */
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    height: 100%;
+}
+
+/* 5. COMPONENTS */
+
+/* Cards */
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Code Snippets */
+.code-window {
+    background: #0f111a;
+    border-radius: 12px;
+    font-family: 'Fira Code', monospace;
+    padding: 20px;
+    border-left: 4px solid var(--neon-cyan);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    color: #a5b4fc;
+    font-size: 20px;
+    margin-top: 15px;
+}
+.tag { color: #ff79c6; } /* Pink */
+.attr { color: #8be9fd; } /* Cyan */
+.val { color: #f1fa8c; } /* Yellow */
+.sel { color: #50fa7b; } /* Green */
+
+/* Icons & Visuals */
+.icon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.icon-item {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+.icon-big {
+    font-size: 120px;
+    color: rgba(255,255,255,0.2);
+    filter: drop-shadow(0 0 10px var(--neon-purple));
+}
+
+/* Folder Structure */
+.folder-tree {
+    font-family: 'Fira Code', monospace;
+    font-size: 20px;
+    color: #e2e8f0;
+}
+.folder { color: var(--neon-cyan); }
+.file { color: var(--neon-pink); margin-left: 20px; }
+
+/* 6. PRINT / PDF OPTIMIZATION */
+@media print {
+    body {
+        background: var(--bg-dark); /* Ensure background prints */
+        display: block; /* Disable grid for print flow */
+        margin: 0;
+        padding: 0;
+        -webkit-print-color-adjust: exact; /* Force background colors */
+        print-color-adjust: exact;
+    }
+    .slide-container {
+        break-inside: avoid; /* Don't cut slides in half */
+        page-break-after: always; /* New page after each slide */
+        margin: 0;
+        border: none;
+        box-shadow: none;
+        width: 100%; /* Full width for PDF */
+        height: 100vh; /* Full height per page */
+    }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Portada -->
+<div class="slide-container" id="slide1">
+    <div style="text-align: center;">
+        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 40px;">
+            <i class="fa-solid fa-clapperboard" style="font-size: 80px; color: var(--neon-pink);"></i>
+            <i class="fa-solid fa-music" style="font-size: 80px; color: var(--neon-cyan);"></i>
+            <i class="fa-solid fa-image" style="font-size: 80px; color: var(--neon-purple);"></i>
+        </div>
+        <h1>Laboratorio:<br>Sitio Estático con Multimedia</h1>
+        <h3 style="font-size: 32px; color: #fff; font-weight: 300; margin-top: 20px;">Integrando imágenes, audio, video y embebidos en HTML5</h3>
+        <p style="margin-top: 30px; font-size: 24px; color: var(--neon-cyan);">
+            Proyecto: "Descubre [Tu Ciudad/País]"
+        </p>
+    </div>
+</div>
+
+<!-- Slide 2: Organización de Archivos -->
+<div class="slide-container" id="slide2">
+    <h2><i class="fa-regular fa-folder-open"></i> Organización de Archivos (Vital)</h2>
+    <div class="two-column">
+        <div>
+            <p><strong>Concepto:</strong> Antes de escribir código, organizamos la casa.</p>
+            <div class="card" style="margin-top: 20px; border-color: var(--neon-cyan);">
+                <p><i class="fa-solid fa-check-circle"></i> <strong>Regla de Oro:</strong></p>
+                <p>"Orden en las carpetas = Paz mental en las rutas".</p>
+            </div>
+        </div>
+        <div class="code-window">
+            <div class="folder-tree">
+                <i class="fa-solid fa-folder-open folder"></i> proyecto_web/<br>
+                &nbsp;├── <i class="fa-brands fa-html5 file" style="color: #e34f26;"></i> index.html<br>
+                &nbsp;├── <i class="fa-solid fa-folder folder"></i> css/<br>
+                &nbsp;│&nbsp;&nbsp;&nbsp;└── <i class="fa-brands fa-css3 file" style="color: #264de4;"></i> estilos.css<br>
+                &nbsp;└── <i class="fa-solid fa-folder folder"></i> assets/<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── <i class="fa-solid fa-folder folder"></i> img/<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── <i class="fa-solid fa-folder folder"></i> video/<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <i class="fa-solid fa-folder folder"></i> audio/
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Imágenes -->
+<div class="slide-container" id="slide3">
+    <h2><i class="fa-regular fa-image"></i> Imágenes: Formatos</h2>
+    <div class="two-column">
+        <div>
+            <p><strong>Etiqueta:</strong> <code>&lt;img src="..." alt="..."&gt;</code></p>
+            <div class="icon-grid" style="margin-top: 20px;">
+                <div class="icon-item">
+                    <strong style="color: var(--neon-cyan);">.jpg</strong><br>Fotos reales
+                </div>
+                <div class="icon-item">
+                    <strong style="color: var(--neon-pink);">.png</strong><br>Transparencias
+                </div>
+                <div class="icon-item">
+                    <strong style="color: var(--neon-purple);">.svg</strong><br>Logos vectoriales
+                </div>
+                <div class="icon-item">
+                    <strong style="color: #4ade80;">.webp</strong><br>Estándar Google
+                </div>
+            </div>
+        </div>
+        <div class="code-window">
+&lt;<span class="tag">img</span> <br>
+&nbsp;&nbsp;<span class="attr">src</span>=<span class="val">"assets/img/foto.webp"</span><br>
+&nbsp;&nbsp;<span class="attr">alt</span>=<span class="val">"Paisaje"</span>&gt;
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Audio y Video -->
+<div class="slide-container" id="slide4">
+    <h2><i class="fa-solid fa-film"></i> Audio y Video Nativo</h2>
+    <div class="two-column">
+        <div>
+            <p>Adiós Flash Player. HTML5 lo hace nativo.</p>
+            <ul style="margin-top: 20px;">
+                <li><code>controls</code>: Muestra play/pausa.</li>
+                <li><code>loop</code>: Se repite infinitamente.</li>
+                <li><code>autoplay</code> + <code>muted</code>: El video arranca solo (pero sin sonido para no molestar).</li>
+            </ul>
+        </div>
+        <div class="code-window">
+&lt;<span class="tag">video</span> <span class="attr">controls</span> <span class="attr">muted</span> <span class="attr">autoplay</span>&gt;<br>
+&nbsp;&nbsp;&lt;<span class="tag">source</span> <span class="attr">src</span>=<span class="val">"intro.mp4"</span>&gt;<br>
+&lt;/<span class="tag">video</span>&gt;<br><br>
+&lt;<span class="tag">audio</span> <span class="attr">controls</span>&gt;<br>
+&nbsp;&nbsp;&lt;<span class="tag">source</span> <span class="attr">src</span>=<span class="val">"bgm.mp3"</span>&gt;<br>
+&lt;/<span class="tag">audio</span>&gt;
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: El Poder del Iframe -->
+<div class="slide-container" id="slide5">
+    <h2><i class="fa-brands fa-youtube"></i> El Poder del Iframe (Embebidos)</h2>
+    <div class="two-column">
+        <div>
+            <p><strong>Concepto:</strong> Una ventana a otra página web dentro de la tuya.</p>
+            <div class="card" style="margin-top: 20px; border-color: #ff0000;">
+                <h3 style="color: #ff0000;"><i class="fa-brands fa-youtube"></i> YouTube & Maps</h3>
+                <p>Ahorras ancho de banda usando sus servidores. Solo copias el código "Embed" que ellos te dan.</p>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; background: #000; border: 2px solid #333; height: 300px; border-radius: 12px; position: relative;">
+            <i class="fa-solid fa-window-maximize" style="position: absolute; top: 10px; right: 10px; color: #555;"></i>
+            <p style="color: #555;">[ CONTENIDO EXTERNO AQUÍ ]</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: CSS para Multimedia -->
+<div class="slide-container" id="slide6">
+    <h2><i class="fa-brands fa-css3-alt"></i> CSS para Multimedia (Responsive)</h2>
+    <div class="two-column">
+        <div style="text-align: center;">
+            <i class="fa-solid fa-mobile-screen-button" style="font-size: 100px; color: var(--neon-cyan); margin-bottom: 20px;"></i>
+            <p><strong>Problema:</strong> Las imágenes grandes rompen el diseño en celulares.</p>
+        </div>
+        <div>
+            <p><strong>Solución:</strong> La regla de oro del frontend:</p>
+            <div class="code-window">
+<span class="sel">img</span>, <span class="sel">video</span>, <span class="sel">iframe</span> {<br>
+&nbsp;&nbsp;<span class="attr">max-width</span>: <span class="val">100%</span>;<br>
+&nbsp;&nbsp;<span class="attr">height</span>: <span class="val">auto</span>;<br>
+&nbsp;&nbsp;<span class="attr">display</span>: <span class="val">block</span>;<br>
+}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: El Reto del Laboratorio -->
+<div class="slide-container" id="slide7">
+    <div style="text-align: center; border: 3px dashed var(--neon-pink); padding: 50px; border-radius: 20px; background: rgba(0,0,0,0.2);">
+        <i class="fa-solid fa-rocket" style="font-size: 80px; color: var(--neon-pink); margin-bottom: 20px;"></i>
+        <h2>Misión: "Turismo en [Ciudad]"</h2>
+        <div style="text-align: left; display: inline-block; margin-top: 20px;">
+            <ul>
+                <li><i class="fa-regular fa-square-check" style="color: var(--neon-cyan);"></i> <strong>Header:</strong> Con Logo (.svg o .png).</li>
+                <li><i class="fa-regular fa-square-check" style="color: var(--neon-cyan);"></i> <strong>Intro:</strong> Video local de fondo o presentación.</li>
+                <li><i class="fa-regular fa-square-check" style="color: var(--neon-cyan);"></i> <strong>Galería:</strong> 3 fotos de lugares turísticos.</li>
+                <li><i class="fa-regular fa-square-check" style="color: var(--neon-cyan);"></i> <strong>Ubicación:</strong> Mapa de Google Maps (Iframe).</li>
+                <li><i class="fa-regular fa-square-check" style="color: var(--neon-cyan);"></i> <strong>(Bonus):</strong> Audio ambiente de fondo.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Blank Slide -->
+<div class="slide-container" id="slide8">
+    <!-- Diapositiva Vacía (Solo Fondo y Estilo) -->
+</div>
+
+</body>
+</html>
